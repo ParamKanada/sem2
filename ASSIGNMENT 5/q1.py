@@ -1,52 +1,25 @@
-class PasswordManager:
-    def __init__(self):
-        self.oldpasswords = []  #list to store old passwords
+def max_xor(x,y):
+    max_val=0
+    for a in range (x,y+1):
+        for b in range(a,y+1):
+            max_val=max(max_val,a^b)
+    return max_val
 
-    def get_password(self):
-        if len(self.oldpasswords) >0:
-            return self.oldpasswords[-1]
-        else:
-            return None
-    
-    def set_password(self,new_password):
-        if new_password not in self.oldpasswords:
-            self.oldpasswords.append(new_password)
-        else:
-            print("This passwords already used before, try another one.")
+def decimalToBinary(n):
+    bin_str = ""  # Make an empty string
+    temp = n
+    while temp > 0:
+        remainder = int(temp % 2)  # Ensure remainder is an integer
+        bin_str = str(remainder) + bin_str  # Prepend(because reminder is added in front) to the string
+        temp = temp // 2  # Integer division
 
-    def is_correct(self,password):
-        if password==self.oldpasswords[-1]:
-            print("Correct Password")
-        else:
-            print("Wrong password")
+    if bin_str == "": #handle if number is 0
+      bin_str = "0"
 
-my_passwordmanager=PasswordManager()
+    return(bin_str) #no need to reverse string
 
-while True:
-    print("\n1. Set Password")
-    print("2. Get Current Password")
-    print("3. Check Password")
-    print("4. Exit")
+L,R=int(input("Enter L: ")),int(input("Enter R: "))
 
-    choice = input("Enter your choice: ")
-
-    if choice == '1':
-        new_password = input("Enter new password: ")
-        my_passwordmanager.set_password(new_password)
-
-    elif choice == '2':
-        print("Current password:", my_passwordmanager.get_password())
-
-    elif choice == '3':
-        check_password = input("Enter password to check: ")
-        if my_passwordmanager.is_correct(check_password):
-            print("Password is correct.")
-        else:
-            print("Password is incorrect.")
-
-    elif choice == '4':
-        print("Exiting...")
-        break
-
-    else:
-        print("Invalid choice. Please try again.")
+print(f"{L} = {decimalToBinary(L)}\t{R} = {decimalToBinary(R)}")
+result=max_xor(L,R)
+print(f"Max xor value is {result}")
